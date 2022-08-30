@@ -1,0 +1,19 @@
+{
+  "name": "csny35-solo-project",
+  "version": "1.0.0",
+  "description": "Present and save programming quotes with social features",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "csny35-solo-project"
+  },
+  "author": "Marco Gonzalez",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
