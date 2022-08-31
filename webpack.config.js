@@ -33,7 +33,7 @@ module.exports = {
       directory: path.join(__dirname, './dist'),
     },
     // contentBase: path.join(__dirname, 'client/'),
-    // port: 3000,
+    port: 3000,
     // publicPath: 'http://localhost:3000/',
     // hotOnly: true
   },
