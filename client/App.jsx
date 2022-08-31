@@ -13,6 +13,7 @@ class App extends Component {
     this.refreshQuote = this.refreshQuote.bind(this);
   }
   refreshQuote (i) {
+    // console.log(i)
     const url = 'https://programming-quotes-api.herokuapp.com/quotes/random';
     fetch(url)
       .then(data => data.json())
@@ -24,7 +25,8 @@ class App extends Component {
         author[i] = data.author;
         id[i] = data.id;
         this.setState({quote:quote, author:author, id:id});
-      });
+      })
+      .catch(err => console.log(err));
   }
   render() {
     const quotes = [];
