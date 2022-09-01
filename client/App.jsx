@@ -12,8 +12,13 @@ class App extends Component {
     this.state = {
       quote: Array(this.numQuotes).fill(''),
       author: Array(this.numQuotes).fill(''),
-      id: Array(this.numQuotes).fill('')
+      id: Array(this.numQuotes).fill(''),
+      userFavorites: []
     };
+    this.userID = 'Marco';
+    // for (let i = 0; i < this.numQuotes; i++) this.refreshQuote(i);
+    this.getFavorites(this.userID);
+    this.getFavorites = this.getFavorites.bind(this);
     this.refreshQuote = this.refreshQuote.bind(this);
   }
   refreshQuote (i) {
@@ -32,6 +37,27 @@ class App extends Component {
       })
       .catch(err => console.log(err));
   }
+
+  async getFavorites(userID) {
+    const userObj = { userID: userID };
+    const quoteIDs = await fetch('/getfavorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON'
+      },
+      body: JSON.stringify(userObj)
+    }).then(data => data.json());
+    const quotes =[];
+    const url = 'https://programming-quotes-api.herokuapp.com/quotes/';
+    for (const id of quoteIDs) {
+      const fetchURL = url+id;
+      const quoteObj = await fetch(fetchURL)
+        .then(data => data.json());
+      quotes.push({quote: quoteObj.en, author: quoteObj.author, id: quoteObj.id});
+    }
+    this.setState({userFavorites: quotes.reverse()});
+  }
+
   render() {
 
     // const quotes = [];
@@ -57,9 +83,11 @@ class App extends Component {
                 {<Home
                   refreshQuote={this.refreshQuote}
                   quote={this.state.quote} author={this.state.author}
-                  id={this.state.id} numQuotes={this.numQuotes}
+                  id={this.state.id} numQuotes={this.numQuotes} userID={this.userID}
                 />} />
-              <Route path="/myspace" element={<MySpace />} />
+              <Route path="/myspace" element=
+                {<MySpace favorites={this.state.userFavorites} userID={this.userID}
+                  getFavorites={this.getFavorites} />} />
             </Routes>
           </div>
         </div>

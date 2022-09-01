@@ -38,6 +38,14 @@ module.exports = {
       '/savefavorite': {
         target: 'http://localhost:3000/',
         secure: false,
+      },
+      '/getfavorites': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/deletefavorite': {
+        target: 'http://localhost:3000/',
+        secure: false,
       }
     }
     // publicPath: 'http://localhost:3000/',

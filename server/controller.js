@@ -15,6 +15,34 @@ controller.saveFavorite = (req, res, next) => {
     });
 };
 
+controller.getFavorites = (req, res, next) => {
+  console.log('Get Favorite')
+  const { userID } = req.body;
+  models.User.find({userID: userID})
+    .then(data => {
+      res.locals.quoteIDs = data[0].saved;
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+controller.deleteFavorite = (req, res, next) => {
+  console.log('Delete Favorite')
+  const { userID, quoteID } = req.body;
+  console.log(quoteID)
+  models.User.findOneAndUpdate({userID: userID}, { $pull: { saved: quoteID }})
+    .then(data => {
+      console.log(data)
+      return next();
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+
 function createUser(userID, quoteID, next) {
   // console.log('new user');
   const saved = [{ quoteID: quoteID }];

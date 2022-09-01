@@ -21,6 +21,14 @@ app.use(express.json());
 app.post('/savefavorite', controller.saveFavorite, (req, res)=>{
   return res.status(200).send('post saveFavorite');
 });
+//handle requests to get favorites
+app.post('/getfavorites', controller.getFavorites, (req, res)=>{
+  return res.status(200).json(res.locals.quoteIDs);
+});
+
+app.post('/deletefavorite', controller.deleteFavorite, (req, res)=>{
+  return res.status(200).json(res.locals.quoteIDs);
+});
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).sendFile(path.resolve(__dirname,'Error-404-Pithy.jpeg')));
