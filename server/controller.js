@@ -16,34 +16,34 @@ controller.saveFavorite = (req, res, next) => {
 };
 
 function createUser(userID, quoteID, next) {
-  console.log('new user');
+  // console.log('new user');
   const saved = [{ quoteID: quoteID }];
-  console.log(saved)
+  // console.log(saved)
   models.User.create({ userID: userID, saved: quoteID })
     .then(user => {
-      console.log(user);
+      // console.log(user);
       return next();
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       return next(err);
     });
 
 }
 
 function updateUser(userID, quoteID, next) {
-  console.log('existing user');
+  // console.log('existing user');
   const findUser = { userID: userID };
   const addToSaved = { quoteID: quoteID };
-  console.log(quoteID)
-  models.User.findOneAndUpdate(findUser, { $push: { saved: quoteID } },
+  // console.log(quoteID)
+  models.User.findOneAndUpdate(findUser, { $addToSet: { saved: quoteID } },
     { new: true })
     .then(user => {
-      console.log(user);
+      // console.log(user);
       return next();
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       return next(err);
     });
 }
