@@ -33,7 +33,13 @@ module.exports = {
       directory: path.join(__dirname, './dist'),
     },
     // contentBase: path.join(__dirname, 'client/'),
-    port: 3000,
+    port: 8000,
+    proxy: {
+      '/savefavorite': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      }
+    }
     // publicPath: 'http://localhost:3000/',
     // hotOnly: true
   },
