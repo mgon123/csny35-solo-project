@@ -14,6 +14,7 @@ class MySpace extends Component {
       },
       body: JSON.stringify(body)
     });
+      // .then(this.props.getFavorites);
   }
   render() {
     const { favorites, userID } = this.props;
